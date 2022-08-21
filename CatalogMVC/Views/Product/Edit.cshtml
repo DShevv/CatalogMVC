@@ -1,0 +1,79 @@
+﻿@model Product
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1>Изменение продукта</h1>
+
+<form method="post" asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row g-3 mt-3">
+        <div class="col-sm-3">
+            <label asp-for="Name" class="form-label">@Html.DisplayNameFor(model => model.Name)</label>
+            <input asp-for="Name" type="text" class="form-control" value="@Model.Name">
+            <span asp-validation-for="Name" class="text-danger">
+
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-3 ">
+        <div class="col-sm-3">
+            <label asp-for="CategoryId" class="form-label">@Html.DisplayNameFor(model => model.CategoryId)</label>
+            <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                <option value="">-- Выберите категорию --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger">
+
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-sm-3">
+            <label asp-for="Description" class="form-label">@Html.DisplayNameFor(model => model.Description)</label>
+            <input asp-for="Description" type="text" class="form-control" value="@Model.Description">
+            <span asp-validation-for="Description" class="text-danger">
+
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-sm-3">
+            <label asp-for="Price" class="form-label">@Html.DisplayNameFor(model => model.Price)</label>
+            <input asp-for="Price" class="form-control" value="@Model.Price">
+            <span asp-validation-for="Price" class="text-danger">
+
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-sm-3">
+            <label asp-for="PublicNote" class="form-label">@Html.DisplayNameFor(model => model.PublicNote)</label>
+            <input asp-for="PublicNote" type="text" class="form-control" value="@Model.PublicNote">
+            <span asp-validation-for="PublicNote" class="text-danger">
+
+            </span>
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-sm-3">
+            <label asp-for="PrivateNote" class="form-label">@Html.DisplayNameFor(model => model.PrivateNote)</label>
+            <input asp-for="PrivateNote" type="text" class="form-control" value="@Model.PrivateNote">
+            <span asp-validation-for="PrivateNote" class="text-danger">
+
+            </span>
+        </div>
+    </div>
+
+
+    <button class="btn btn-primary btn-lg mt-3" type="submit">Изменить</button>
+
+    <div>
+        <a class="btn btn-secondary btn-lg mt-3" asp-action="Index">Назад</a>
+    </div>
+</form>

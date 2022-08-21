@@ -1,0 +1,63 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.brd {
+    border-radius: 5px;
+    overflow:hidden;
+}
+
+.table-responsive, .table {
+    overflow: visible;
+}
+
+.product-name {
+    position: relative;
+}
+
+.product{
+    z-index: 2;
+    transition: all .5s ease;
+}
+
+.product:hover .product-delete {
+    opacity: 1;
+    z-index: 10
+}
+
+.product-delete {
+    display: block;
+    width: 30px;
+    height: 100%;
+    background-color: transparent;
+    background-image: url(../assets/delete-icon.svg);
+    background-size: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 50%;
+    left: -30px;
+    transform: translateY(-50%);
+    transition: all 0.5s ease;
+    z-index: 1;
+    opacity: 0;
+}
+
+.product-delete:hover {
+    background-image: url(../assets/delete-open-icon.svg);
+}

@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Category>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Категории";
+
+}
+
+
+<section class="container-fluid">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-left">
+            <h1 class="fw-light">Категории</h1>
+            @if(User.Identity.IsAuthenticated && User.IsInRole("admin")){
+                <p>
+                    <a asp-controller="Category" asp-action="Create" class="btn btn-primary my-2">Создать категорию</a>
+                </p>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover brd">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr role="button" onclick="location.href='@Url.Action("Detail", "Category", new {id = item.Id})'">
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>        
+                    </tr>
+                }
+                
+
+            </tbody>
+        </table>
+    </div>
+</section>

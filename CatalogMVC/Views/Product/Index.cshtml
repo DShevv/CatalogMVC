@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Product>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Каталог продуктов";
+}
+
+<section class="container-fluid">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-left">
+            <h1 class="fw-light">Каталог продуктов</h1>
+            <p>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Advanced"))
+                {
+                    <a asp-controller="Product" asp-action="Create" class="btn btn-primary my-2">Создать</a>
+                }      
+            </p>
+        </div>
+    </div>
+</section>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Поиск: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+            <input type="submit" value="Найти" class="btn btn-primary" /> |
+            <a asp-action="Index"  class="btn btn-outline-secondary">К полному списку</a>
+        </p>
+    </div>
+</form>
+
+<section class="container-fluid">
+    <div class="table-responsive">
+        <table class="table table-striped table-hover brd">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">
+                        <a class="btn btn-outline-primary" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-searchString="@ViewData["CurrentFilter"]">Наименование</a>
+              </th>
+              <th scope="col">
+                        <a class="btn btn-outline-primary" asp-action="Index" asp-route-sortOrder="@ViewData["CatSortParam"]" asp-route-searchString="@ViewData["CurrentFilter"]">Категория</a>
+                </th>
+              <th scope="col">
+                        <a class="btn btn-outline-primary" asp-action="Index" asp-route-sortOrder="@ViewData["DescSortParam"]" asp-route-searchString="@ViewData["CurrentFilter"]">Описание</a>
+                </th>
+              <th scope="col">
+                        <a class="btn btn-outline-primary" asp-action="Index" asp-route-sortOrder="@ViewData["PriceSortParam"]" asp-route-searchString="@ViewData["CurrentFilter"]">Стоимость в рублях</a>
+              </th>
+              <th scope="col">
+                        <a class="btn btn-outline-primary" asp-action="Index" asp-route-sortOrder="@ViewData["PublicSortParam"]" asp-route-searchString="@ViewData["CurrentFilter"]">Примечание общее</a>
+              </th>
+              @if (User.Identity.IsAuthenticated && !User.IsInRole("user"))
+              {
+                <th scope="col">
+                            <a class="btn btn-outline-primary" asp-action="Index" asp-route-sortOrder="@ViewData["PrivateSortParam"]" asp-route-searchString="@ViewData["CurrentFilter"]">Примечание специальное</a>
+                </th>
+              }
+              
+            </tr>
+          </thead>
+          <tbody>
+            @foreach (var item in Model)
+            {
+                    if (User.Identity.IsAuthenticated && User.IsInRole("Advanced"))
+                    {
+                        <tr class="product" role="button"  onclick="location.href='@Url.Action("Edit", "Product", new {id = item.Id})'">
+                            <td class="product-name">
+                                @item.Name
+                               <a asp-controller="Product" asp-action="Delete" asp-route-id="@item.Id" class="product-delete"></a>
+                              
+
+                            </td>
+                            <td>
+                                <a asp-controller="Category" asp-action="Detail" asp-route-id="@item.Category.Id">
+                                    @item.Category.Name
+                                </a>
+                            </td>
+                            <td>@item.Description</td>
+                            <td>@item.Price</td>
+                            <td>@item.PublicNote</td>
+                            <td>@item.PrivateNote</td>
+                           
+
+                        </tr>
+                    }
+                    else{
+                        <tr class="product" >
+                            <td class="product-name">
+                                @item.Name
+                            </td>
+                            <td>
+                                <a asp-controller="Category" asp-action="Detail" asp-route-id="@item.Category.Id">
+                                    @item.Category.Name
+                                </a>
+                            </td>
+                            <td>@item.Description</td>
+                            <td>@item.Price</td>
+                            <td>@item.PublicNote</td>
+                            @if (User.Identity.IsAuthenticated && !User.IsInRole("user"))
+                            {
+                                <td>@item.PrivateNote</td>
+                            }
+
+                        </tr>
+                    }
+                   
+            }
+          </tbody>
+        </table>
+      </div>
+</section>
