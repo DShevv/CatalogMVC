@@ -1,9 +1,9 @@
 # CatalogMVC
 
-База данных: MS SQL
-Язык программирования: C# ASP.Net Core
-WEB интерфейс: HTML, CSS, JavaScript (Bootstrap, JQuery)
-
+База данных: MS SQL  
+Язык программирования: C# ASP.Net Core  
+WEB интерфейс: HTML, CSS, JavaScript (Bootstrap, JQuery)  
+  
 Приготовления перед запуском:
   1) Создать пустую базу данных;
   2) Скопировать ConnectionString;
